@@ -6,7 +6,7 @@
 * Visual Studio Code
 * Google Cloud Platform account
 
-"In this repository, we are going to create a custom Virtual Private Cloud, and we're going to create an output file that gives us the name of the VPC. We're also going to create a .TXT file that is going to show our favorite food! **Let's Get Started!**"
+"In this repository, we are going to create a custom Virtual Private Cloud using Terraform code, and we're going to create an output file that gives us the name and details of that VPC. We're also going to create a .TXT file that is going to show our favorite food! **Let's Get Started!**"
 
 **Step #1:** Go to GitHub.com and click on the green button that says "New". This will create us a new GitHub Repository.<br/>
 <br/>
@@ -77,6 +77,7 @@
 <br/>
 
 <img width="2880" height="1824" alt="014-createauthfile" src="https://github.com/user-attachments/assets/b3c81cf9-4cc0-41fd-b328-9f4a981c2a80" />
+<br/>
 
 **Step #13:** Add these configuration options to your code in 0-authentication.tf file, by following the next step.
 <br/>
@@ -94,6 +95,108 @@
 <br/>
 
 <img width="2880" height="1824" alt="017-terraforminit" src="https://github.com/user-attachments/assets/964f0e02-8aad-4642-976c-77a05ddeba12" />
+<br/>
+
+**Step #16:** Create a 1-vpc.tf file, either in the File Explorer or by running this command `touch 1-vpc.tf` in the Git Bash terminal. 
+<br/>
+
+<img width="2880" height="1824" alt="018-createvpcfile" src="https://github.com/user-attachments/assets/440d5f2a-e5de-4cc2-9c99-fd101aaa7165" />
+<br/>
+
+**Step #17:** Go to the Terraform Registry again, and search for [google_compute_network], and copy this Example Usage, and paste it into your 1-vpc.tf file.
+<br/>
+
+<img width="2880" height="1662" alt="019-googlecomputenetworkresource" src="https://github.com/user-attachments/assets/bf006d2d-af70-4420-af5e-06666b6ff477" />
+<br/>
+
+**Step #18:** On Line 1, and Line 2 of 1-vpc.tf, give your VPC a unique name. Also, on line 3 enter [routing_mode = "REGIONAL". Lastly, one Line 4, enter [auto_create_subnetworks = true]. 
+<br/>
+
+<img width="2880" height="1824" alt="020-addyourvpcname" src="https://github.com/user-attachments/assets/cc1492e8-d4ba-490e-bdd6-bc15ff1cec6f" />
+<br/>
+
+**Step #19:** Create a outputs.tf file in the File Explorer, or run this command `touch 2-outputs.tf` in Git Bash. On Line 1, create a resouce block named "output "vpc_name" { }.
+<br/>
+
+Inside the resource block, on Line 2 add [description = "Name of the VPCs], and on Line 3 add value = google_compute_network.YOUR-CUSTOM-VPC.tf
+<br/>
+
+👆
+What this file and resource block does, is output the name and details of your Virtual Private Cloud in the Git Bash terminal.
+<br/>
+
+**Step #20:** Once again, go back to the Terraform Registry and search for local_file, and copy the Example Usage. You will need this code for the next step.
+<br/>
+
+<img width="2880" height="1662" alt="022-copylocalfileresource" src="https://github.com/user-attachments/assets/f69b107c-949a-4eee-8a1e-67a1e1258620" />
+<br/>
+
+**Step #21:** Create file.tf file in the File Explorer, or run this command `touch file.tf` in Git Bash. After this file has been created, in that same file proceed to edit lines 2, of this code to display whatever you wish as your content. On line 3, add the name of your text.txt. 
+<br/>
+
+<img width="2880" height="1824" alt="023-createfiletfandeditfile" src="https://github.com/user-attachments/assets/bdaca913-3ce2-4d37-a265-61d2278dac1a" />
+<br/>
+
+**Step #22:** Clear your Git Bash terminal with this command `clear`.
+<br/>
+
+<img width="2880" height="1824" alt="024-opengitbash" src="https://github.com/user-attachments/assets/cbfe2970-0b4f-4e9a-bb8c-12376aafa64a" />
+<br/>
+
+**Step #23:** Run this command in Git Bash `terraform init`. This initializes Terraform in your current working directory where your Terraform files are located for this current project.
+<br/>
+
+<img width="2880" height="1824" alt="026-terraforminit" src="https://github.com/user-attachments/assets/7fb6827f-8ae1-490a-b2e7-3f206828dc11" />
+<br/>
+
+**Step #24:** After running `terraform init`, run this next command  `terraform validate` to validate the Terraform code to make sure the resources are correctly identified in your code.
+<br/>
+
+<img width="2880" height="1824" alt="027-terraformvalidate" src="https://github.com/user-attachments/assets/fcde348d-700b-4fad-95f1-56ed9fcd5acf" />
+<br/>
+
+**Step #25:** Run this command `terraform plan`. This command shows you all the Google Cloud Platform resources that are about to be created by running this Terraform command from your Git Bash terminal. This simplifies the process of creating GCP resources by using the GUI which could take tremendously longer.
+<br/>
+
+<img width="2880" height="1824" alt="028-terraformplan1" src="https://github.com/user-attachments/assets/007683e8-44fe-4b1d-92e9-de4ca54043eb" />
+<br/>
+
+<img width="2880" height="1824" alt="029-terraformplan2" src="https://github.com/user-attachments/assets/8ffea177-4e54-44be-a620-e86932abebac" />
+<br/>
+
+**Step #26:** If you're okay with the above GCP resources being created, run this next command `terraform apply -auto-approve to create them.
+<br/>
+
+<img width="2880" height="1824" alt="030-terraformapplyandvpcnameoutput" src="https://github.com/user-attachments/assets/08b6f443-b9b9-49a0-b898-a582eb89405a" />
+<br/>
+
+**Step #27:** Alas, after running `terraform apply -auto-approve`, our GCP resources have been created in our above image. 👆 You can also see the text created in the below image. 👇
+<br/>
+
+<img width="2880" height="1824" alt="031-successfavoritefoodtxt" src="https://github.com/user-attachments/assets/37c26934-0149-490f-9c24-575c44b21541" />
+<br/>
+
+**Step #28:** If you're satisfied with this successful run of Terraform, and wish to destroy these resources run this command `terraform destroy -auto-approve` in your Git Bash terminal.
+<br/>
+
+<img width="2880" height="1824" alt="032-terraformdestroyautoapprove" src="https://github.com/user-attachments/assets/ab62e576-e738-4dab-a4f6-dd62a5b7bb73" />
+<br/>
+
+**Step #29:** Log into your Google Cloud Platform console
+<br/>
+
+<img width="2880" height="1650" alt="033-logingcpconsole" src="https://github.com/user-attachments/assets/6a6794a7-9613-4950-bc6f-37108dd6959c" />
+<br/>
+
+**Step #30:** Click on VPC Networks
+<br/>
+
+<img width="2880" height="1650" alt="034-vpcnetworks" src="https://github.com/user-attachments/assets/94247362-586e-44e7-b9e0-14e427dee7b3" />
+<br/>
+
+**Step #31:** Confirm your VPC has been deleted!
+
+<img width="2880" height="1650" alt="035-customvpcisdeleted" src="https://github.com/user-attachments/assets/4e40fa87-832e-4178-8bbf-da86f4716bff" />
 <br/>
 
 
